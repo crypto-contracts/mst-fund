@@ -14,7 +14,7 @@ async function main() {
     const MintNFT = await ethers.getContractFactory("MintNFT");
     const mintNFT = await MintNFT.deploy(safe, token, mstFund.address);
 
-    console.log("FundNFT address:", fundNft.address);
+    console.log("MSTFund address:", mstFund.address);
     console.log("MintNFT address:", mintNFT.address);
 }
 
