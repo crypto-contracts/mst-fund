@@ -23,32 +23,35 @@ interface IERC20 {
     function decimals() external returns (uint8);
 }
 
-contract MintFundNFT {
-    address immutable safe;
-    address immutable token;
-    address immutable fundNFT;
+contract MintNFT {
+    address public immutable safe;
+    address public immutable token;
+    address public immutable fundNFT;
+    uint256 public immutable base;
 
     constructor(
         address _safe,
         address _token,
-        address _fundNFT
+        address _fundNFT,
+        uint256 _base
     ) {
         safe = _safe;
         token = _token;
         fundNFT = _fundNFT;
+        base = _base;
     }
 
     function deposit(uint256 value) external {
         uint256 decimals = uint256(IERC20(token).decimals());
 
         require(
-            value % (100 * (10**decimals)) == 0 && value > 0,
+            value % (base * (10**decimals)) == 0 && value > 0,
             "value is not correct"
         );
 
         require(IERC20(token).transferFrom(msg.sender, safe, value));
 
-        uint256 share = value / (100 * (10**decimals));
+        uint256 share = value / (base * (10**decimals));
         IFundNFT(fundNFT).mint(msg.sender, share, value);
     }
 }

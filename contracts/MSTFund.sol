@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract FundNFT is ERC721, AccessControl {
+contract MSTFund is ERC721, AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     uint256 internal tokenId;
@@ -30,7 +30,7 @@ contract FundNFT is ERC721, AccessControl {
         uint256 ts
     );
 
-    constructor(address _safe) ERC721("MST FUND NFT", "MSTFUNDNFT") {
+    constructor(address _safe) ERC721("MST FUND", "MSTFund") {
         _setupRole(DEFAULT_ADMIN_ROLE, _safe);
     }
 
